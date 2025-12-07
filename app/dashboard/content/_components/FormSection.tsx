@@ -42,26 +42,27 @@ function FormSection({ selectedTemplate,userFormInput,loading}: PROPS) {
             
             <form className='mt-6' onSubmit={onSubmit}>
                 {selectedTemplate?.form && selectedTemplate.form.map((item, index) => (
-                    <div className='my-2 flex flex-col gap-2 mb-7'>
+                    <div key={index} className='my-2 flex flex-col gap-2 mb-7'>
                         <label className='font-bold'>{item.label}</label>
-                        {item.field=='input' ?
-                        <Input name={item.name} required={item?.required}
-                        onChange={handleInputChange}
-                        />
-                        :item.field=='textarea'?
-                        <Textarea name={item.name} required={item?.required}
-                        onChange={handleInputChange}/>:null
-                        
-                    }
-                        <input
-                            type={item.field}
-                            name={item.name}
-                            required={item.required}
-                            className='block mt-1'
-                        />
+                        {item.field === 'input' ? (
+                            <Input
+                                name={item.name}
+                                required={item?.required}
+                                onChange={handleInputChange}
+                            />
+                        ) : item.field === 'textarea' ? (
+                            <Textarea
+                                name={item.name}
+                                required={item?.required}
+                                onChange={handleInputChange}
+                            />
+                        ) : null}
                     </div>
                 ))}
-                <Button type="submit" className='bg-gradient-to-tr from-pink-500 via-pink-700 to-orange-500 w-full py-6' disabled={loading}> {loading&&<Loader2Icon className='animate-spin'/>}Generate Content</Button>
+                <Button type="submit" className='bg-gradient-to-tr from-pink-500 via-pink-700 to-orange-500 w-full py-6' disabled={loading}>
+                    {loading && <Loader2Icon className='animate-spin'/>}
+                    Generate Content
+                </Button>
             </form>
         </div>
     )
